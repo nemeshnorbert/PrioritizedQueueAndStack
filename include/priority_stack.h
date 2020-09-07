@@ -1,18 +1,18 @@
-#ifndef PRIORITIZED_QUEUE_AND_STACK_PRIORITIZED_STACK_H_
-#define PRIORITIZED_QUEUE_AND_STACK_PRIORITIZED_STACK_H_
+#ifndef PRIORITY_QUEUE_PRIORITY_STACK_H_
+#define PRIORITY_QUEUE_PRIORITY_STACK_H_
 
 #include <vector>
 #include <algorithm>
 #include <functional>
 
 template <typename ValueType, typename ComparerType = std::less<ValueType>>
-class ProiritiziedStack
+class PriorityStack
 {
 public:
-    ProiritiziedStack() : data_(), prefixPriorityId_(), comparer_()
+    PriorityStack() : data_(), prefixPriorityId_(), comparer_()
     {}
 
-    ProiritiziedStack(const ProiritiziedStack<ValueType, ComparerType>& right)
+    PriorityStack(const PriorityStack<ValueType, ComparerType>& right)
         : data_(right.data_),
         prefixPriorityId_(right.prefix_priority_id_),
         comparer_(right.comparer_)
@@ -60,7 +60,7 @@ public:
         return data_[prefixPriorityId_.back()];
     }
 
-    void Swap(ProiritiziedStack<ValueType, ComparerType>& right)
+    void Swap(PriorityStack<ValueType, ComparerType>& right)
     {
         data_.swap(right.data_);
         prefixPriorityId_.swap(right.prefix_priority_id_);

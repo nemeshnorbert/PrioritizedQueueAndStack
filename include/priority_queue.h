@@ -1,16 +1,17 @@
-#ifndef PRIORITIZED_QUEUE_AND_STACK_PRIORITIZED_QUEUE_H_
-#define PRIORITIZED_QUEUE_AND_STACK_PRIORITIZED_QUEUE_H_
+#ifndef PRIORITY_QUEUE_PRIORITY_QUEUE_H_
+#define PRIORITY_QUEUE_PRIORITY_QUEUE_H_
 
-#include "PrioritizedStack.h"
+#include <cassert>
+#include "priority_stack.h"
 
 template <typename ValueType, typename ComparerType = std::less<ValueType>>
-class ProiritiziedQueue
+class PriorityQueue
 {
 public:
-    ProiritiziedQueue() : leftStack_(), rightStack_()
+    PriorityQueue() : leftStack_(), rightStack_()
     {}
 
-    ProiritiziedQueue(const ProiritiziedQueue<ValueType, ComparerType>& right)
+    PriorityQueue(const PriorityQueue<ValueType, ComparerType>& right)
         : leftStack_(right.leftStack_), rightStack_(right.rightStack_)
     {}
 
@@ -44,28 +45,29 @@ public:
 
     ValueType PriorityValue() const
     {
+        assert(!leftStack_.Empty() || !rightStack_.Empty());
         if (!leftStack_.Empty() && !rightStack_.Empty())
         {
             return std::max(leftStack_.PriorityValue(),
                 rightStack_.PriorityValue(),
                 ComparerType());
         }
-        if (!leftStack_.Empty() && rightStack_.Empty())
+        else if (!leftStack_.Empty() && rightStack_.Empty())
         {
             return leftStack_.PriorityValue();
         }
         return rightStack_.PriorityValue();
     }
 
-    void Swap(ProiritiziedQueue<ValueType, ComparerType>& right)
+    void Swap(PriorityQueue<ValueType, ComparerType>& right)
     {
         leftStack_.Swap(right.leftStack_);
         rightStack_.Swap(right.rightStack_);
     }
 
 private:
-    ProiritiziedStack<ValueType, ComparerType> leftStack_;
-    ProiritiziedStack<ValueType, ComparerType> rightStack_;
+    PriorityStack<ValueType, ComparerType> leftStack_;
+    PriorityStack<ValueType, ComparerType> rightStack_;
 };
 
 #endif
